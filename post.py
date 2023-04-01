@@ -2,9 +2,9 @@ import requests
 import json
 
 class Post:
-    def __init__(self, post_id, post_parser):
+    def __init__(self, post_id, post_page_parser):
         self._post_id = post_id
-        self._post_parser = post_parser
+        self._post_page_parser = post_page_parser
 
     def _build_post_url(self):
         return f'https://www.instagram.com/p/{self._post_id}/'
@@ -15,5 +15,5 @@ class Post:
         if data.status_code != 200:
             raise Exception(f'Unable to fetch post with id "{self._post_id}"')
 
-        self._post_parser.feed(data.text)
-        return json.loads(self._post_parser.data)
+        self._post_page_parser.feed(data.text)
+        return json.loads(self._post_page_parser.data)

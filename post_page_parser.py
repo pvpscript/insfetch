@@ -1,6 +1,6 @@
 from html.parser import HTMLParser
 
-class PostParser(HTMLParser):
+class PostPageParser(HTMLParser):
     _data = None
     _flag_found_data = False
     _flag_disable = False
