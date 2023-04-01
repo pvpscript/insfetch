@@ -10,4 +10,7 @@ if __name__ == '__main__':
     post_handler = PostHandler(post_id=post_id,
                                post_page_parser=post_page_parser)
 
-    print(post_handler.fetch_post())
+    print(post_handler.article_body())
+    print(post_handler.author_username())
+    print(post_handler.author_name())
+    print(post_handler.author_image())
