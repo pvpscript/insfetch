@@ -1,7 +1,7 @@
 import requests
 import json
 
-class Post:
+class PostHandler:
     def __init__(self, post_id, post_page_parser):
         self._post_id = post_id
         self._post_page_parser = post_page_parser
