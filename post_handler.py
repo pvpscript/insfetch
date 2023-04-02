@@ -1,6 +1,8 @@
 import requests
 import json
 
+from utils import chained_get
+
 class PostHandler:
     _post_dict = None
 
@@ -22,19 +24,10 @@ class PostHandler:
         self._post_page_parser.feed(data.text)
         return json.loads(self._post_page_parser.data)
 
-    def _get(self, dict_data, chain):
-        if dict_data is None or len(chain) < 1:
-            return None
-
-        if len(chain) == 1:
-            return dict_data.get(chain[0])
-
-        return self._get(dict_data.get(chain.pop(0)), chain)
-
     # TODO: code below needs refactoring!
 
     def article_body(self): # [root]
-        return self._get(self._post_dict, ['articleBody'])
+        return chained_get(self._post_dict, ['articleBody'])
 
     def num_images(self): # image
         pass
@@ -67,13 +60,13 @@ class PostHandler:
         pass
 
     def author_username(self): # author
-        return self._get(self._post_dict, ['author', 'identifier', 'value'])
+        return chained_get(self._post_dict, ['author', 'identifier', 'value'])
 
     def author_name(self): # author
-        return self._get(self._post_dict, ['author', 'name'])
+        return chained_get(self._post_dict, ['author', 'name'])
 
     def author_image(self): # author
-        return self._get(self._post_dict, ['author', 'image'])
+        return chained_get(self._post_dict, ['author', 'image'])
 
     def num_comments(self): # interactionStatistic
         pass
