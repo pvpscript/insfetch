@@ -36,11 +36,35 @@ class PostHandler:
     def article_body(self): # [root]
         return self._get(self._post_dict, ['articleBody'])
 
-    def images(self): # [root]
-        pass # amount of images, dimensions, url, caption
+    def num_images(self): # image
+        pass
 
-    def videos(self): # [root]
-        pass # amount of videos, dimensions, content url, thumbnail url, upload date, num of likes
+    def image_dimensions(self, index): # image
+        pass
+
+    def image_url(self, index): # image
+        pass
+
+    def image_caption(self): # image
+        pass
+
+    def num_videos(self): # video
+        pass
+
+    def video_dimensions(self, index): # video
+        pass
+
+    def video_url(self, index): # video
+        pass
+
+    def video_thumbnail(self, index): # video
+        pass
+
+    def video_upload_date(self, index): # video
+        pass
+
+    def video_likes(self, index): # video
+        pass
 
     def author_username(self): # author
         return self._get(self._post_dict, ['author', 'identifier', 'value'])
