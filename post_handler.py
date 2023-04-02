@@ -2,6 +2,7 @@ import requests
 import json
 
 from utils import chained_get
+from image import Image
 
 class PostHandler:
     _post_dict = None
@@ -11,7 +12,7 @@ class PostHandler:
         self._post_page_parser = post_page_parser
 
         self._post_dict = self._fetch_post()
-
+        
     def _build_post_url(self):
         return f'https://www.instagram.com/p/{self._post_id}/'
 
@@ -29,17 +30,9 @@ class PostHandler:
     def article_body(self): # [root]
         return chained_get(self._post_dict, ['articleBody'])
 
-    def num_images(self): # image
-        pass
-
-    def image_dimensions(self, index): # image
-        pass
-
-    def image_url(self, index): # image
-        pass
-
-    def image_caption(self): # image
-        pass
+    @property
+    def image(self):
+        return Image(self._post_dict['image'])
 
     def num_videos(self): # video
         pass

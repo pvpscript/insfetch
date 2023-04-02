@@ -14,3 +14,8 @@ if __name__ == '__main__':
     print(post_handler.author_username())
     print(post_handler.author_name())
     print(post_handler.author_image())
+
+    image_data = post_handler.image
+    print(image_data.quantity())
+    print(image_data.dimensions(0))
+    print(image_data.url(0))
