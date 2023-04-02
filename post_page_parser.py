@@ -9,6 +9,15 @@ class PostPageParser(HTMLParser):
         return [a[0] == 'type' and a[1] == 'application/ld+json'
                 for a in attrs]
 
+    def _reset(self):
+        self._data = None
+        self._flag_found_data = False
+        self._flag_disable = False
+
+    def feed(self, *args, **kwargs):
+        self._reset()
+        super().feed(*args, **kwargs)
+
     def handle_starttag(self, tag, attrs):
         if (self._flag_found_data == False and
                 tag == 'script' and self._match_attrs(attrs)):
