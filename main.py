@@ -2,6 +2,7 @@ import sys
 
 from post_page_parser import PostPageParser
 from post_handler import PostHandler
+from profile_handler import ProfileHandler
 
 if __name__ == '__main__':
     post_id = sys.argv[1]
@@ -19,3 +20,13 @@ if __name__ == '__main__':
     print(image_data.quantity())
     print(image_data.dimensions(0))
     print(image_data.url(0))
+
+    # --------------------------------------------------
+
+    profile_handler = ProfileHandler(sys.argv[2])
+    print(profile_handler.biography())
+    print(profile_handler.bio_links())
+    print(profile_handler.bio_entities())
+    print(profile_handler.num_followers())
+    print(profile_handler.num_follows())
+    print(profile_handler.full_name())
