@@ -2,6 +2,7 @@ import requests
 import json
 
 from insfetch.core.utils import chained_get
+from insfetch.core.utils import get_proxies 
 from insfetch.post.content.image import Image
 
 class PostHandler:
@@ -11,13 +12,14 @@ class PostHandler:
         self._post_id = post_id
         self._post_page_parser = post_page_parser
 
+        self._proxies = get_proxies()
         self._post_dict = self._fetch_post()
         
     def _build_post_url(self):
         return f'https://www.instagram.com/p/{self._post_id}/'
 
     def _fetch_post(self):
-        data = requests.get(self._build_post_url())
+        data = requests.get(self._build_post_url(), proxies=self._proxies)
 
         if data.status_code != 200:
             raise Exception(f'Unable to fetch post with id "{self._post_id}"')

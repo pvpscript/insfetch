@@ -1,11 +1,14 @@
 import requests
 
+from insfetch.core.utils import get_proxies
+
 class ProfileHandler:
     _API_URL = 'https://www.instagram.com/api/v1/users/web_profile_info/'
 
     def __init__(self, username):
         self._username = username
 
+        self._proxies = get_proxies()
         self._profile_data = self._fetch()
 
     @property
@@ -26,7 +29,8 @@ class ProfileHandler:
     def _fetch(self):
         result = requests.get(url=self._API_URL,
                               params=self._params,
-                              headers=self._headers)
+                              headers=self._headers,
+                              proxies = self._proxies)
 
         result_dict = result.json()
         if result_dict['status'].lower() != 'ok':
