@@ -1,4 +1,4 @@
-# insta-fetch
+# insfetch
 A simple and lightweight Instagram post fetcher written in pure Python
 
 TODO:
