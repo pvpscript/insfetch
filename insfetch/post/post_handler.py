@@ -1,8 +1,8 @@
 import requests
 import json
 
-from utils import chained_get
-from image import Image
+from insfetch.core.utils import chained_get
+from insfetch.post.content.image import Image
 
 class PostHandler:
     _post_dict = None

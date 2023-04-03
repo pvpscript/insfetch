@@ -1,10 +1,10 @@
 import sys
 
-from post_page_parser import PostPageParser
-from post_handler import PostHandler
-from profile_handler import ProfileHandler
+from insfetch.post.post_page_parser import PostPageParser
+from insfetch.post.post_handler import PostHandler
+from insfetch.profile.profile_handler import ProfileHandler
 
-if __name__ == '__main__':
+def main():
     post_id = sys.argv[1]
 
     post_page_parser = PostPageParser()
