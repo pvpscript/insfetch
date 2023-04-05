@@ -1,6 +1,9 @@
 import requests
 
-from insfetch.core.utils import get_proxies
+from .content.related_profile import RelatedProfile
+from .content.timeline_media import TimelineMedia
+
+from insfetch.utils.funcs import get_proxies
 
 class ProfileHandler:
     _API_URL = 'https://www.instagram.com/api/v1/users/web_profile_info/'
@@ -32,8 +35,7 @@ class ProfileHandler:
                               headers=self._headers,
                               proxies = self._proxies)
 
-        result_dict = result.json()
-        if result_dict['status'].lower() != 'ok':
+        if (result_dict := result.json())['status'].lower() != 'ok':
             raise Exception('Unable to fetch profile data for "{self._username}"')
 
         return result_dict['data']['user']
@@ -131,8 +133,18 @@ class ProfileHandler:
     def pronouns(self):
         return self._profile_data['pronouns']
 
-    def related_profiles(self): # needs to be broken down
-        return self._profile_data['edge_related_profiles']['edges']
+    def related_profiles(self):
+        if not hasattr(self, '_related_profiles'):
+            rp_data = self._profile_data['edge_related_profiles']['edges']
+            self._related_profiles = [RelatedProfile(__ref__=rp['node'])
+                                      for rp in rp_data]
 
-    def timeline_media(self): # needs to be broken down
-        return self._profile_data['edge_owner_to_timeline_media']
+        return self._related_profiles
+
+    def timeline_media(self):
+        if not hasattr(self, '_timeline_media'):
+            tm_data = self._profile_data['edge_owner_to_timeline_media']['edges']
+            self._timeline_media = [TimelineMedia(tm['node'], __ref__=tm['node'])
+                                                  for tm in tm_data]
+
+        return self._timeline_media
