@@ -12,6 +12,7 @@ class FilteredParams:
 
         if keys is not None and ref_dict is not None:
             for k in keys:
-                setattr(instance, k, ref_dict[k])
+                if k in ref_dict.keys():
+                    setattr(instance, k, ref_dict[k])
 
         return instance
