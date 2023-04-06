@@ -1,7 +1,7 @@
 import requests
 import json
 
-from insfetch.core.utils import chained_get
+from insfetch.core.utils import cc_get
 from insfetch.core.utils import get_proxies 
 from insfetch.post.content.image import Image
 
@@ -30,7 +30,7 @@ class PostHandler:
     # TODO: code below needs refactoring!
 
     def article_body(self): # [root]
-        return chained_get(self._post_dict, ['articleBody'])
+        return cc_get(self._post_dict, ['articleBody'])
 
     @property
     def image(self):
@@ -55,13 +55,13 @@ class PostHandler:
         pass
 
     def author_username(self): # author
-        return chained_get(self._post_dict, ['author', 'identifier', 'value'])
+        return cc_get(self._post_dict, ['author', 'identifier', 'value'])
 
     def author_name(self): # author
-        return chained_get(self._post_dict, ['author', 'name'])
+        return cc_get(self._post_dict, ['author', 'name'])
 
     def author_image(self): # author
-        return chained_get(self._post_dict, ['author', 'image'])
+        return cc_get(self._post_dict, ['author', 'image'])
 
     def num_comments(self): # interactionStatistic
         pass
