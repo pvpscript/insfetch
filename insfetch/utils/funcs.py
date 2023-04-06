@@ -1,7 +1,7 @@
 import os
 import sys
 
-def chained_get(dict_data, chain):
+def cc_get(dict_data, chain): # chained conditional get
     if dict_data is None or len(chain) < 1:
         return None
 

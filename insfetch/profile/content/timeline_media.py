@@ -47,11 +47,12 @@ class TimelineMedia:
 
     def sidecar_to_children(self):
         if not hasattr(self, '_sidecar_for_children'):
-            s_data = chained_get(dict_data=self._data,
-                                 chain=['edge_sidecar_to_children', 'edges'])
+            s_data = cc_get(dict_data=self._data,
+                            chain=['edge_sidecar_to_children', 'edges'])
 
             self._sidecar_for_children = (
-                None if s_data is None
+                None
+                if s_data is None
                 else [SidecarForChilren(__ref__=sfc['node']) for sfc in s_data]
             )
 
