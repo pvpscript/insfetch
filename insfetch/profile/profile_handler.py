@@ -3,9 +3,22 @@ import requests
 from .content.related_profile import RelatedProfile
 from .content.timeline_media import TimelineMedia
 
+from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
+
 from insfetch.utils.funcs import get_proxies, cc_get
 
+@AutorefferingAttributes
 class ProfileHandler:
+    __attributes__ = ['biography', 'fbid', 'full_name', 'has_clips',
+                      'has_guides', 'has_channel', 'id', 'is_business_account',
+                      'is_professional_account', 'is_supervised_user',
+                      'is_joined_recently', 'guardian_id',
+                      'business_contact_method', 'business_email',
+                      'business_email', 'business_phone_number',
+                      'business_category_name', 'category_name',
+                      'is_private', 'is_verified', 'profile_pic_url',
+                      'profile_pic_url_hd', 'connected_fb_page', 'pronouns']
+
     _API_URL = 'https://www.instagram.com/api/v1/users/web_profile_info/'
 
     def __init__(self, username):
@@ -40,9 +53,6 @@ class ProfileHandler:
 
         return cc_get(result_dict, ['data', 'user'])
 
-    def biography(self):
-        return self._profile_data['biography']
-
     def bio_links(self):
         b_links := self._profile_data.get('bio_links')
 
@@ -69,76 +79,11 @@ class ProfileHandler:
         return entities
 
     def num_followers(self):
-        return self._profile_data['edge_followed_by']['count']
+        return cc_get(self._profile_data, ['edge_followed_by', 'count'])
 
     def num_follows(self):
-        return self._profile_data['edge_follow']['count']
-
-    def facebook_id(self):
-        return self._profile_data['fbid']
-
-    def full_name(self):
-        return self._profile_data['full_name']
-
-    def has_clips(self):
-        return self._profile_data['has_clips']
-
-    def has_guides(self):
-        return self._profile_data['has_guides']
-
-    def has_channel(self):
-        return self._profile_data['has_channel']
-
-    def id(self):
-        return self._profile_data['id']
-
-    def is_business_account(self):
-        return self._profile_data['is_business_account']
-
-    def is_professional_account(self):
-        return self._profile_data['is_professional_account']
-
-    def is_supervised_user(self):
-        return self._profile_data['is_supervised_user']
-
-    def is_joined_recently(self):
-        return self._profile_data['is_joined_recently']
-
-    def guardian_id(self):
-        return self._profile_data['guardian_id']
-
-    def business_contact_method(self):
-        return self._profile_data['business_contact_method']
-
-    def business_email(self):
-        return self._profile_data['business_email']
-
-    def business_phone_number(self):
-        return self._profile_data['business_phone_number']
-
-    def business_category_name(self):
-        return self._profile_data['business_category_name']
-
-    def category_name(self):
-        return self._profile_data['category_name']
-
-    def is_private(self):
-        return self._profile_data['is_private']
-
-    def is_verified(self):
-        return self._profile_data['is_verified']
-
-    def profile_pic_url(self):
-        return self._profile_data['profile_pic_url']
-
-    def profile_pic_url_hd(self):
-        return self._profile_data['profile_pic_url']
-
-    def connected_fb_page(self):
-        return self._profile_data['connected_fb_page']
-
-    def pronouns(self):
-        return self._profile_data['pronouns']
+        return cc_get(self._profile_data, ['edge_follow', 'count'])
+    
 
     def related_profiles(self):
         if not hasattr(self, '_related_profiles'):
