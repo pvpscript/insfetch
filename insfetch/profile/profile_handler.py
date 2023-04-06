@@ -3,7 +3,7 @@ import requests
 from .content.related_profile import RelatedProfile
 from .content.timeline_media import TimelineMedia
 
-from insfetch.utils.funcs import get_proxies
+from insfetch.utils.funcs import get_proxies, cc_get
 
 class ProfileHandler:
     _API_URL = 'https://www.instagram.com/api/v1/users/web_profile_info/'
@@ -38,26 +38,33 @@ class ProfileHandler:
         if (result_dict := result.json())['status'].lower() != 'ok':
             raise Exception('Unable to fetch profile data for "{self._username}"')
 
-        return result_dict['data']['user']
+        return cc_get(result_dict, ['data', 'user'])
 
     def biography(self):
         return self._profile_data['biography']
 
     def bio_links(self):
-        b_links = self._profile_data['bio_links']
+        b_links := self._profile_data.get('bio_links')
+
+        if b_links is None:
+            return ''
         
-        links = b_links[0]['url']
-        for l in b_links[1:]:
-            links += '\n' + l['url']
+        if (links := b_links[0].get('url')) is not None:
+            for l in b_links[1:]:
+                links += '\n' + l.get('url')
 
         return links
 
     def bio_entities(self):
-        b_entities = self._profile_data['biography_with_entities']['entities']
+        b_entities = cc_get(dict_data=self._profile_data,
+                            chain=['biography_with_entities', 'entities'])
 
-        entities = b_entities[0]['user']['username']
-        for e in b_entities[1:]:
-            entities += '\n' + e['user']['username']
+        if b_entities is None:
+            return ''
+
+        if (entities := cc_get(b_entities[0], ['user', 'username'])) is not None:
+            for e in b_entities[1:]:
+                entities += '\n' + cc_get(e, ['user', 'username'])
 
         return entities
 
@@ -135,16 +142,27 @@ class ProfileHandler:
 
     def related_profiles(self):
         if not hasattr(self, '_related_profiles'):
-            rp_data = self._profile_data['edge_related_profiles']['edges']
-            self._related_profiles = [RelatedProfile(__ref__=rp['node'])
-                                      for rp in rp_data]
+            rp_data = cc_get(dict_data=self._profile_data,
+                             chain=['edge_related_profiles', 'edges'])
+
+            self._related_profiles = (
+                None
+                if rp_data is None
+                else [RelatedProfile(__ref__=rp.get('node')) for rp in rp_data]
+            )
 
         return self._related_profiles
 
     def timeline_media(self):
         if not hasattr(self, '_timeline_media'):
-            tm_data = self._profile_data['edge_owner_to_timeline_media']['edges']
-            self._timeline_media = [TimelineMedia(tm['node'], __ref__=tm['node'])
-                                                  for tm in tm_data]
+            tm_data = cc_get(dict_data=self._profile_data,
+                             chain=['edge_owner_to_timeline_media', 'edges'])
+
+            self._timeline_media = (
+                None
+                if tm_data is None
+                else [TimelineMedia(tm['node'], __ref__=tm.get('node'))
+                      for tm in tm_data]
+            )
 
         return self._timeline_media

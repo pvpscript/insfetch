@@ -24,27 +24,42 @@ class TimelineMedia:
 
     def tagged_users(self):
         if not hasattr(self, '_tagged_users'):
-            tu_data = self._data['edge_media_to_tagged_user']['edges']
-            self._tagged_users =  [TaggedUser(__ref_ =t_user['node']['user'])
-                                   for t_user in tu_data]
+            tu_data = cc_get(dict_data=self._data,
+                             chain=['edge_media_to_tagged_user', 'edges'])
+
+            self._tagged_users = (
+                None
+                if tu_data is None
+                else [TaggedUser(__ref__=cc_get(t_user, ['node', 'user']))
+                      for t_user in tu_data]
+            )
 
         return self._tagged_users
 
     def media_to_caption(self):
         if not hasattr(self, '_media_captions'):
-            c_data = self._data['edge_media_to_caption']['edges']
-            self._media_captions = [c['node']['text'] for c in c_data]
+            c_data = cc_get(dict_data=self._data,
+                            chain=['edge_media_to_caption', 'edges'])
+
+            self._media_captions = (
+                None
+                if c_data is None
+                else [cc_get(c, ['node', 'text']) for c in c_data]
+            )
 
         return self._media_captions
 
     def comment_count(self):
-        return self._data['edge_media_to_comment']['count']
+        return cc_get(dict_data=self._data,
+                      chain=['edge_media_to_comment', 'count'])
 
     def like_count(self):
-        return self._data['edge_media_liked_by']['count']
+        return cc_get(dict_data=self._data,
+                      chain=['edge_media_liked_by', 'count'])
 
     def media_preview_like_count(self):
-        return self._data['edge_media_preview_like']['count']
+        return cc_get(dict_data=self._data,
+                      chain=['edge_media_preview_like', 'count'])
 
     def sidecar_to_children(self):
         if not hasattr(self, '_sidecar_for_children'):
@@ -54,7 +69,8 @@ class TimelineMedia:
             self._sidecar_for_children = (
                 None
                 if s_data is None
-                else [SidecarForChilren(__ref__=sfc['node']) for sfc in s_data]
+                else [SidecarForChilren(__ref__=sfc.get('node'))
+                      for sfc in s_data]
             )
 
         return self._sidecar_for_children
