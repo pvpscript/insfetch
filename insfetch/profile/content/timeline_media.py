@@ -1,22 +1,23 @@
-from insfetch.utils.filtered_params import FilteredParams
-from insfetch.utils.funcs import chained_get
+from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
+from insfetch.utils.funcs import cc_get
 
 from .tagged_user import TaggedUser
 from .sidecar_for_children import SidecarForChildren
 
-@FilteredParams
+@AutorefferingAttributes
 class TimelineMedia:
-    __keys__ = ['id', 'shortcode', 'dimensions', 'display_url',
-                'fact_check_overall_rating', 'fact_check_information',
-                'gating_info', 'sharing_friction_info', 'media_overlay_info',
-                'media_preview', 'owner', 'is_video', 'has_upcoming_event',
-                'accessibility_caption', 'dash_info', 'has_audio',
-                'tracking_token', 'video_url', 'video_view_count',
-                'comments_disabled', 'taken_at_timestamp', 'location',
-                'nft_asset_info', 'thumbnail_src', 'thumbnail_resources',
-                'felix_profile_grid_crop', 'coauthor_producers',
-                'pinned_for_users', 'viewer_can_reshare',
-                'product_type', 'clips_music_attribution_info']
+    __attributes__ = ['id', 'shortcode', 'dimensions', 'display_url',
+                      'fact_check_overall_rating', 'fact_check_information',
+                      'gating_info', 'sharing_friction_info',
+                      'media_overlay_info', 'media_preview', 'owner',
+                      'is_video', 'has_upcoming_event',
+                      'accessibility_caption', 'dash_info', 'has_audio',
+                      'tracking_token', 'video_url', 'video_view_count',
+                      'comments_disabled', 'taken_at_timestamp', 'location',
+                      'nft_asset_info', 'thumbnail_src', 'thumbnail_resources',
+                      'felix_profile_grid_crop', 'coauthor_producers',
+                      'pinned_for_users', 'viewer_can_reshare',
+                      'product_type', 'clips_music_attribution_info']
 
     def __init__(self, data):
         self._data = data

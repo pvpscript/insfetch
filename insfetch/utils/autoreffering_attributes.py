@@ -1,11 +1,11 @@
 from typing import List, Dict, Any
 
-class FilteredParams:
+class AutorefferingAttributes:
     def __init__(self, cls):
         self._cls = cls
 
     def __call__(self, *args, **kwargs):
-        keys: List[str] = self._cls.__keys__
+        keys: List[str] = self._cls.__attributes__
         ref_dict: Dict[str, Any] = kwargs.pop('__ref__', None)
 
         instance = self._cls(*args, **kwargs)

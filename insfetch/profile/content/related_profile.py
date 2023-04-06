@@ -1,6 +1,6 @@
-from insfetch.utils.filtered_params import FilteredParams
+from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
 
-@FilteredParams
+@AutorefferingAttributes
 class RelatedProfile:
-    __keys__ = ['id', 'full_name', 'is_private', 'is_verified',
-                'profile_pic_url', 'username']
+    __attributes__ = ['id', 'full_name', 'is_private', 'is_verified',
+                      'profile_pic_url', 'username']

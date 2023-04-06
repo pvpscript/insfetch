@@ -1,6 +1,6 @@
-from insfetch.utils.filtered_params import FilteredParams
+from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
 
-@FilteredParams
+@AutorefferingAttributes
 class TaggedUser:
-    __keys__ = ['full_name', 'id', 'is_verified', 'profile_pic_url',
-                'username']
+    __attributes__ = ['full_name', 'id', 'is_verified', 'profile_pic_url',
+                      'username']

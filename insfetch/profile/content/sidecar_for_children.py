@@ -1,12 +1,12 @@
-from insfetch.utils.filtered_params import FilteredParams
+from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
 
-@FilteredParams
+@AutorefferingAttributes
 class SidecarForChildren:
-    __keys__ = ['id', 'shortcode', 'dimensions', 'display_url',
-                'fact_check_overall_rating', 'fact_check_information',
-                'gating_info', 'sharing_friction_info', 'media_overlay_info',
-                'media_preview', 'owner', 'is_video', 'has_upcoming_event',
-                'accessibility_caption']
+    __attributes__ = ['id', 'shortcode', 'dimensions', 'display_url',
+                      'fact_check_overall_rating', 'fact_check_information',
+                      'gating_info', 'sharing_friction_info',
+                      'media_overlay_info', 'media_preview', 'owner',
+                      'is_video', 'has_upcoming_event', 'accessibility_caption']
 
     def __init__(self, data):
         self._data = data
