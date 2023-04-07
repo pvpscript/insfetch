@@ -1,9 +1,9 @@
 import requests
 import json
 
-from insfetch.core.utils import cc_get
-from insfetch.core.utils import get_proxies 
 from insfetch.post.content.image import Image
+
+from insfetch.utils.funcs import get_proxies, cc_get
 
 class PostHandler:
     _post_dict = None
