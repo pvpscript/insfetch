@@ -51,4 +51,4 @@ class PostHandler:
 
     @property
     def image(self):
-        return Image(self._post_dict['image'])
+        return [Image(__ref__=i for i in self._post_dict.get('image'))]
