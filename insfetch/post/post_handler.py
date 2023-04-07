@@ -2,6 +2,9 @@ import requests
 import json
 
 from insfetch.post.content.image import Image
+from insfetch.post.content.video import Video
+from insfetch.post.content.author import Author
+from insfetch.post.content.comment import Comment
 
 from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
 from insfetch.utils.funcs import get_proxies, cc_get
@@ -49,6 +52,15 @@ class PostHandler:
 
         return {k: v for i in interactions for k, v in i.items()}
 
+    def author(self):
+        return [Author(a, __ref__=a) for a in self._post_dict.get('author')]
+
+    def comment(self):
+        return [Comment(c, __ref__=c) for c in self._post_dict.get('comment')]
+
     @property
     def image(self):
-        return [Image(__ref__=i for i in self._post_dict.get('image'))]
+        return [Image(__ref__=i) for i in self._post_dict.get('image')]
+
+    def video(self):
+        return [Video(__ref__=v) for v in self._post_dict.get('video')]
