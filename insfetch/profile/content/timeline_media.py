@@ -69,7 +69,7 @@ class TimelineMedia:
             self._sidecar_for_children = (
                 None
                 if s_data is None
-                else [SidecarForChilren(__ref__=sfc.get('node'))
+                else [SidecarForChilren(node := sfc.get('node'), __ref__=node)
                       for sfc in s_data]
             )
 
