@@ -8,7 +8,7 @@ def cc_get(dict_data, chain): # chained conditional get
     if len(chain) == 1:
         return dict_data.get(chain[0])
 
-    return chained_get(dict_data.get(chain.pop(0)), chain)
+    return cc_get(dict_data.get(chain.pop(0)), chain)
 
 def get_proxies():
     metadata = {
