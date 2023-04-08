@@ -2,7 +2,7 @@ from insfetch.utils.autoreffering_attributes import AutorefferingAttributes
 from insfetch.utils.funcs import cc_get
 
 from .tagged_user import TaggedUser
-from .sidecar_for_children import SidecarForChildren
+from .sidecar_to_children import SidecarToChildren
 
 @AutorefferingAttributes
 class TimelineMedia:
@@ -62,15 +62,15 @@ class TimelineMedia:
                       chain=['edge_media_preview_like', 'count'])
 
     def sidecar_to_children(self):
-        if not hasattr(self, '_sidecar_for_children'):
+        if not hasattr(self, '_sidecar_to_children'):
             s_data = cc_get(dict_data=self._data,
                             chain=['edge_sidecar_to_children', 'edges'])
 
-            self._sidecar_for_children = (
+            self._sidecar_to_children = (
                 None
                 if s_data is None
-                else [SidecarForChilren(node := sfc.get('node'), __ref__=node)
+                else [SidecarToChildren(node := sfc.get('node'), __ref__=node)
                       for sfc in s_data]
             )
 
-        return self._sidecar_for_children
+        return self._sidecar_to_children

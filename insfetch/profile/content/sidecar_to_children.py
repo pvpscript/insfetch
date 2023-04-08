@@ -3,7 +3,7 @@ from insfetch.utils.autoreffering_attributes import AutorefferingAttributes
 from insfetch.utils.funcs import cc_get
 
 @AutorefferingAttributes
-class SidecarForChildren:
+class SidecarToChildren:
     __attributes__ = ['id', 'shortcode', 'dimensions', 'display_url',
                       'fact_check_overall_rating', 'fact_check_information',
                       'gating_info', 'sharing_friction_info',
