@@ -13,6 +13,7 @@ class SidecarToChildren:
     def __init__(self, data):
         self._data = data
 
+    @property
     def tagged_users(self):
         if not hasattr(self, '_tagged_users'):
             tu_data = cc_get(dict_data=self._data,

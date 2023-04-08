@@ -32,21 +32,25 @@ class Post:
             case _:
                 return {'unmapped': count}
 
+    @property
     def identifier(self):
         return cc_get(self._data, ['identifier', 'value'])
 
+    @property
     def interaction_statistic(self):
         interactions = [self._match_interaction(i)
                         for i in cc_get(self._data, ['interactionStatistic'])]
 
         return {k: v for i in interactions for k, v in i.items()}
 
+    @property
     def author(self):
         if (author_dict := self._data.get('author')) is not None:
             return Author(author_dict, __ref__=author_dict)
 
         return None
 
+    @property
     def comment(self):
         if (comment_dict := self._data.get('comment')) is not None:
             return Comment(comment_dict, __ref__=comment_dict)
@@ -57,5 +61,6 @@ class Post:
     def images(self):
         return [Image(__ref__=i) for i in self._data.get('image')]
 
+    @property
     def videos(self):
         return [Video(__ref__=v) for v in self._data.get('video')]

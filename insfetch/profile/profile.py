@@ -20,6 +20,7 @@ class Profile:
     def __init__(self, data):
         self._data = data
 
+    @property
     def bio_links(self):
         b_links = self._data.get('bio_links')
 
@@ -32,6 +33,7 @@ class Profile:
 
         return links
 
+    @property
     def bio_entities(self):
         b_entities = cc_get(dict_data=self._data,
                             chain=['biography_with_entities', 'entities'])
@@ -45,13 +47,16 @@ class Profile:
 
         return entities
 
+    @property
     def num_followers(self):
         return cc_get(self._data, ['edge_followed_by', 'count'])
 
+    @property
     def num_follows(self):
         return cc_get(self._data, ['edge_follow', 'count'])
     
 
+    @property
     def related_profiles(self):
         if not hasattr(self, '_related_profiles'):
             rp_data = cc_get(dict_data=self._data,
@@ -65,6 +70,7 @@ class Profile:
 
         return self._related_profiles
 
+    @property
     def timeline_media(self):
         if not hasattr(self, '_timeline_media'):
             tm_data = cc_get(dict_data=self._data,

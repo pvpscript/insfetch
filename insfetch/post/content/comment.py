@@ -8,5 +8,6 @@ class Comment:
     def __init__(self, data):
         self._data = data
 
+    @property
     def author(self):
         return [Author(a, __ref__=a) for a in self._data.get('author')]

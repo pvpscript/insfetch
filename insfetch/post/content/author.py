@@ -10,5 +10,6 @@ class Author:
     def __init__(self, data):
         self._data = data
 
+    @property
     def identifier(self):
         return cc_get(self._data, ['identifier', 'value'])

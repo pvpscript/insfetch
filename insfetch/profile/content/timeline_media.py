@@ -22,6 +22,7 @@ class TimelineMedia:
     def __init__(self, data):
         self._data = data
 
+    @property
     def tagged_users(self):
         if not hasattr(self, '_tagged_users'):
             tu_data = cc_get(dict_data=self._data,
@@ -36,6 +37,7 @@ class TimelineMedia:
 
         return self._tagged_users
 
+    @property
     def media_to_caption(self):
         if not hasattr(self, '_media_captions'):
             c_data = cc_get(dict_data=self._data,
@@ -49,18 +51,22 @@ class TimelineMedia:
 
         return self._media_captions
 
+    @property
     def comment_count(self):
         return cc_get(dict_data=self._data,
                       chain=['edge_media_to_comment', 'count'])
 
+    @property
     def like_count(self):
         return cc_get(dict_data=self._data,
                       chain=['edge_media_liked_by', 'count'])
 
+    @property
     def media_preview_like_count(self):
         return cc_get(dict_data=self._data,
                       chain=['edge_media_preview_like', 'count'])
 
+    @property
     def sidecar_to_children(self):
         if not hasattr(self, '_sidecar_to_children'):
             s_data = cc_get(dict_data=self._data,
