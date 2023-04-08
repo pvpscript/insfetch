@@ -4,7 +4,8 @@ from insfetch.utils.funcs import cc_get
 
 @AutorefferingAttributes
 class Author:
-    __attributes__ = ['image', 'name', 'alternateName', 'url']
+    __attributes__ = ['image', 'name', 'url']
+    __dict_attributes__ = [{'alternateName': 'alternate_name'}]
 
     def __init__(self, data):
         self._data = data

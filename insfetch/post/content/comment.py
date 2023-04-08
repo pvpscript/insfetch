@@ -2,7 +2,8 @@ from insfetch.utils.autoreffering_attributes import AutorefferingAttributes
 
 @AutorefferingAttributes
 class Comment:
-    __attributes__ = ['text', 'dateCreated']
+    __attributes__ = ['text']
+    __dict_attributes__ = [{'dateCreated': 'date_created'}]
 
     def __init__(self, data):
         self._data = data
