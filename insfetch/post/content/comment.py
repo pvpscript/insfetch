@@ -8,4 +8,4 @@ class Comment:
         self._data = data
 
     def author(self):
-        return [Author(a, __ref__=a for a in self._data.get('author')]
+        return [Author(a, __ref__=a) for a in self._data.get('author')]

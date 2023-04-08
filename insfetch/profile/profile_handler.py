@@ -3,7 +3,7 @@ import requests
 from .content.related_profile import RelatedProfile
 from .content.timeline_media import TimelineMedia
 
-from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
+from insfetch.utils.autoreffering_attributes import AutorefferingAttributes
 
 from insfetch.utils.funcs import get_proxies, cc_get
 
@@ -54,7 +54,7 @@ class ProfileHandler:
         return cc_get(result_dict, ['data', 'user'])
 
     def bio_links(self):
-        b_links := self._profile_data.get('bio_links')
+        b_links = self._profile_data.get('bio_links')
 
         if b_links is None:
             return ''

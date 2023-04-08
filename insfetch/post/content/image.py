@@ -1,4 +1,4 @@
-from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
+from insfetch.utils.autoreffering_attributes import AutorefferingAttributes
 
 @AutorefferingAttributes
 class Image:

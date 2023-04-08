@@ -1,4 +1,4 @@
-from insfetch.utils.autorrefering_attributes import AutorefferingAttributes
+from insfetch.utils.autoreffering_attributes import AutorefferingAttributes
 from insfetch.utils.funcs import cc_get
 
 from .tagged_user import TaggedUser
