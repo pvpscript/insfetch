@@ -8,8 +8,10 @@ class AutorefferingAttributes:
         return next((k, v) for k, v in ref_dict.items())
 
     def __call__(self, *args, **kwargs):
-        attributes: List[str] = self._cls.__attributes__
-        dict_attributes: List[dict] = self._cls.__dict_attributes__
+        attributes: List[str] = getattr(self._cls, '__attributes__', None)
+        dict_attributes: List[dict] = getattr(self._cls,
+                                              '__dict_attributes__',
+                                              None)
         ref_dict: Dict[str, Any] = kwargs.pop('__ref__', None)
 
         instance = self._cls(*args, **kwargs)
